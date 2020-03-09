@@ -9,7 +9,9 @@ import android.util.Size
 import android.graphics.Matrix
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
+import android.util.Rational
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
@@ -62,8 +64,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     private fun startCamera() {
 
+
+
         // Create configuration object for the viewfinder use case
         val previewConfig = PreviewConfig.Builder().apply {
+
             setTargetResolution(Size(1280, 720))
         }.build()
 
@@ -89,8 +94,10 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
                 // We don't set a resolution for image capture; instead, we
                 // select a capture mode which will infer the appropriate
                 // resolution based on aspect ration and requested mode
-                setCaptureMode(ImageCapture.CaptureMode.MAX_QUALITY)
-                
+                setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
+                //        TO Use Front Camera: Set Lence Facing....
+                setLensFacing(androidx.camera.core.CameraX.LensFacing.FRONT);
+
             }.build()
         // Build the image capture use case and attach button click listener
         val imageCapture = ImageCapture(imageCaptureConfig)
